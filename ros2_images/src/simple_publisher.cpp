@@ -23,7 +23,7 @@ class SimpleImagePublisher : public rclcpp::Node
     {
       publisher_ = this->create_publisher<sensor_msgs::msg::Image>("image", 10);
       timer_ = this->create_wall_timer(
-      500ms, std::bind(&SimpleImagePublisher::timer_callback, this));
+      33ms, std::bind(&SimpleImagePublisher::timer_callback, this));
     }
 
   private:

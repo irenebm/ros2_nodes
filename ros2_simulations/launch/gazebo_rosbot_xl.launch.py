@@ -1,17 +1,11 @@
-from launch import (
-    LaunchDescription,
-    LaunchContext,
-)
+from launch import LaunchDescription, LaunchContext
 from launch.actions import (
     RegisterEventHandler,
     IncludeLaunchDescription,
     DeclareLaunchArgument,
     OpaqueFunction,
 )
-from launch.conditions import (
-    IfCondition,
-    UnlessCondition,
-)
+from launch.conditions import IfCondition
 from launch.event_handlers import OnProcessExit
 from launch.substitutions import (
     PathJoinSubstitution,
@@ -22,10 +16,7 @@ from launch.substitutions import (
 )
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 
-from launch_ros.actions import (
-    Node,
-    SetParameter
-)
+from launch_ros.actions import Node, SetParameter
 from launch_ros.substitutions import FindPackageShare
 
 from ament_index_python.packages import get_package_share_directory
@@ -173,24 +164,13 @@ def generate_launch_description():
         description='Run Gazebo Ignition in the headless mode',
     )
 
-    nav_params_file = LaunchConfiguration('nav_params_file')
-    declare_nav_params_file_cmd = DeclareLaunchArgument(
-        'nav_params_file',
+    params_file = LaunchConfiguration('params_file')
+    declare_params_file_cmd = DeclareLaunchArgument(
+        'params_file',
         default_value=PathJoinSubstitution([
             get_package_share_directory('ros2_simulations'),
             'params',
-            'nav2_params_rosbot_xl.yaml',
-        ]),
-        description='Full path to the ROS2 parameters file to use for all launched nodes',
-    )
-
-    slam_params_file = LaunchConfiguration('slam_params_file')
-    declare_slam_params_file_cmd = DeclareLaunchArgument(
-        'slam_params_file',
-        default_value=PathJoinSubstitution([
-            get_package_share_directory('ros2_simulations'),
-            'params',
-            'slam_params_rosbot_xl.yaml',
+            'gazebo_params_rosbot_xl.yaml',
         ]),
         description='Full path to the ROS2 parameters file to use for all launched nodes',
     )
@@ -401,7 +381,7 @@ def generate_launch_description():
             ])
         ),
         launch_arguments={
-            'params_file': nav_params_file,
+            'params_file': params_file,
             'use_sim_time': 'True',
         }.items(),
     )
@@ -439,10 +419,11 @@ def generate_launch_description():
         ),
         condition=IfCondition(slam),
         launch_arguments={
-            'params_file' : nav_params_file,
+            'params_file' : params_file,
             'use_sim_time': 'True',
         }.items(),
     )
+
     #######################
     # RViz                #
     #######################
@@ -463,14 +444,11 @@ def generate_launch_description():
         declare_simulation_engine_arg,
         declare_world_arg,
         declare_headless_arg,
-        declare_nav_params_file_cmd,
-        declare_slam_params_file_cmd,
+        declare_params_file_cmd,
         declare_use_rviz_cmd,
         declare_rviz_config_file_cmd,
         declare_slam_cmd,
         declare_map_file_cmd,
-        # Sets use_sim_time for all nodes started below
-        # (doesn't work for nodes started from ignition gazebo)
         SetParameter(name='use_sim_time', value=True),
         gz_sim,
         OpaqueFunction(function=launch_gz_bridge),

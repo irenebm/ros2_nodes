@@ -7,14 +7,16 @@
   <maintainer email="irenebanderam@gmail.com">Irene Bandera</maintainer>
   <license file="LICENSE">Apache 2.0</license>
 
-  <exec_depend>rosbot_xl_bringup</exec_depend>
-
   <exec_depend>launch</exec_depend>
   <exec_depend>launch_ros</exec_depend>
 
+  <exec_depend>rosbot_xl_description</exec_depend>
+  <exec_depend>rosbot_xl_bringup</exec_depend>
   <exec_depend>husarion_office_gz</exec_depend>
   <exec_depend>ros_gz_sim</exec_depend>
   <exec_depend>ros_gz_bridge</exec_depend>
+  <exec_depend>webots_ros2_husarion</exec_depend>
+
   <exec_depend>gz_ros2_control</exec_depend>
   <exec_depend>navigation2</exec_depend>
   <exec_depend>slam_toolbox</exec_depend>
