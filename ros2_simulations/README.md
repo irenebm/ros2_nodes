@@ -52,3 +52,8 @@ Click the ``Nav2 Goal`` button and choose a destination.
 ```shell
 ros2 launch ros2_simulations webots_rosbot_xl.launch.py slam:=False
 ```
+
+Once you’ve set the initial pose, the transform tree will be complete and [Navigation](https://navigation.ros.org/) will be fully active and ready to go. You should see the robot and particle cloud now.
+Click the ``Nav2 Goal`` button and choose a destination.
+
+![rosbotxl-webots-localization](https://github.com/irenebm/ros2_nodes/blob/iron/.figures/ros2_simulations/preview_webots_localization_rosbot_xl.png)

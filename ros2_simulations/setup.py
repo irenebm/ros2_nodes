@@ -19,6 +19,10 @@ data_files.append(('share/' + package_name + '/rviz', [
         'rviz/rviz_config_rosbot_xl.rviz'
 ]))
 data_files.append(('share/' + package_name, ['package.xml']))
+data_files.append(('share/' + package_name + '/maps', [
+        'maps/map_husarion.pgm',
+        'maps/map_husarion.yaml'
+]))
 
 setup(
     name=package_name,
