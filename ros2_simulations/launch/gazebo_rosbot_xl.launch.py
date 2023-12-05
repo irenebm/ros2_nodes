@@ -203,7 +203,11 @@ def generate_launch_description():
     map_file = LaunchConfiguration('map_file')
     declare_map_file_cmd = DeclareLaunchArgument(
         'map_file',
-        default_value='',
+        default_value=PathJoinSubstitution([
+            get_package_share_directory('ros2_simulations'),
+            'maps',
+            'map_husarion.yaml',
+        ]),
         description='Full path to map yaml file to load',
     )
 
