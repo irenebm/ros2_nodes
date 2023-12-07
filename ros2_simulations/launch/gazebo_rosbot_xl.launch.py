@@ -42,8 +42,10 @@ def launch_gz_bridge(context: LaunchContext, *args, **kwargs):
             '/camera/depth/points@sensor_msgs/msg/PointCloud2[ignition.msgs.PointCloudPacked'
         )
 
-        gz_remapping.append(('/camera/camera_info', '/camera/depth/camera_info'))
-        gz_remapping.append(('/camera/depth', '/camera/depth/image_raw'))
+        gz_remapping.append(('/camera/color/camera_info', '/intel_realsense_r200_depth/depth/camera_info'))
+        gz_remapping.append(('/camera/color/image_raw', '/intel_realsense_r200_depth/image_raw'))
+        gz_remapping.append(('/camera/depth/points', '/intel_realsense_r200_depth/points'))
+        gz_remapping.append(('/camera/camera_info', '/intel_realsense_r200_depth/camera_info'))
 
         depth_camera_parent_tf = 'camera_depth_frame'
     else:

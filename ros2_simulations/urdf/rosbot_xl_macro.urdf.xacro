@@ -11,8 +11,10 @@
     </xacro:unless>
 
     <!-- INCLUDE ROBOT PARTS DEFINITIONS -->
+    <!-- include files with definition of xacro macro of robot parts and sensor -->
     <xacro:include filename="$(find rosbot_xl_description)/urdf/body.urdf.xacro" ns="body" />
     <xacro:include filename="$(find rosbot_xl_description)/urdf/wheel.urdf.xacro" ns="wheel" />
+    <xacro:include filename="$(find ros_components_description)/urdf/intel_realsense_d435.urdf.xacro" ns="camera" />
 
     <!-- BODY DECLARATION -->
     <xacro:body.body wheel_radius="${wheel_radius}" />
@@ -26,6 +28,14 @@
       use_sim="$(arg use_sim)" />
     <xacro:wheel.wheel wheel_radius="${wheel_radius}" prefix="rr" mecanum="${mecanum}"
       use_sim="$(arg use_sim)" />
+
+    <!-- evaluate the macro and place the sensor on robot -->
+    <xacro:camera.intel_realsense_d435
+      parent_link="cover_link"
+      xyz="0.0 0.0 0.0"
+      rpy="0.0 0.0 0.0"
+      use_gpu="true"
+      simulation_engine="gazebo-classic" />
 
     <!-- ROS2 CONTROL -->
     <xacro:unless value="$(arg use_sim)">
